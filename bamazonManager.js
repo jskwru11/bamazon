@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const db = require('./database');
+const {getCatalog, getLowInventory} = require('./bamazon');
 
 /*
   * List a set of menu options:
@@ -22,10 +23,16 @@ const start = () => {
         const choice = result;
         switch (choice.managerSelection) {
             case 'View Products for Sale':
-                const sql = `SELECT * FROM products`;
-                db.query(sql, (error, productResults) => {
-                    productResults.map(item => console.log(item));
-                })
+                getCatalog();
+                start();
+                break;
+            case 'View Low Inventory':
+                getLowInventory();
+                start();
+                break;
+            default:
+                console.log('hey');
+                break;
         }
     });
 };
