@@ -27,6 +27,12 @@ const start = () => {
                     db.query(sql, (error, shoppingResult) => {
                         if (error) throw error;
                         const total = item.price * result.productQuantity;
+                        console.log(result.productID);
+                        db.query(`UPDATE products SET  product_sales=${total} WHERE item_id=${result.productID}`, (error, buyResult) => {
+                            if (error) throw error;
+                            console.lof(`total updated...`);
+                            
+                        })
                         console.log(`Your order has been placed.  Your total is: $ ${total}`);
                         start();
                     });
@@ -34,7 +40,6 @@ const start = () => {
             });
 
         })
-        console.log(result);
     });
 };
 
